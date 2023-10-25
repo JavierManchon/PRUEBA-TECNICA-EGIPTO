@@ -27,29 +27,32 @@
 // Averigua cómo hacer referencia a los inputs. Las devtools son tus amigas
 
 let nameInput$$ = document.body.querySelector("#name");
-let nameResult$$ = document.body.querySelector("#nameWhithoutVocals");
-nameInput$$.addEventListener("blur", removeVocalsAndSpaces);
 
 function calculateIntervalDays() {
 
 }
 
 function removeVocalsAndSpaces() {
-    for (let i = 0; i < nameInput$$.value.length; i++) {
-        if (nameInput$$.value[i] !== "a" && nameInput$$.value[i] !== "e" && nameInput$$.value[i] !== "i" && nameInput$$.value[i] !== "o" && nameInput$$.value[i] !== "u" && nameInput$$.value[i] !== " " && 
-        nameInput$$.value[i] !== "A" && nameInput$$.value[i] !== "E" && nameInput$$.value[i] !== "I" && nameInput$$.value[i] !== "O" && nameInput$$.value[i] !== "U") {
-            nameResult$$.value += nameInput$$.value[i];
+    nameInput$$.addEventListener("blur", handleInputName);
+}
+
+function handleInputName() {
+    let nameResult$$ = document.body.querySelector("#nameWhithoutVocals");
+    let newInput$$ = document.body.querySelector("#name");
+    nameResult$$.value = newInput$$.value;
+    for (let i = 0; i < nameResult$$.value.length; i++) {
+        if (nameResult$$.value[i] !== "a" && nameResult$$.value[i] !== "e" && nameResult$$.value[i] !== "i" && nameResult$$.value[i] !== "o" && nameResult$$.value[i] !== "u" && nameResult$$.value[i] !== " " && 
+        nameResult$$.value[i] !== "A" && nameResult$$.value[i] !== "E" && nameResult$$.value[i] !== "I" && nameResult$$.value[i] !== "O" && nameResult$$.value[i] !== "U") {
+            nameResult$$.value.splice(i, 1);
         }
     }
     return nameResult$$.value;
 }
 
-function handleInputName() {
-
-}
-
 function handleInputDate() {
 
 }
+
+removeVocalsAndSpaces();
 
 //aqui iran los eventos
