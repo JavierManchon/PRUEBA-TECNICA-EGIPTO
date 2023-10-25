@@ -28,8 +28,14 @@
 
 let nameInput$$ = document.body.querySelector("#name");
 
-function calculateIntervalDays() {
+//Defino el dia de referencia como valor numerico en formato ms
+const referenceDayAsNum = 1679270400000;
+//Defino un dia en formato ms (24x60x60x1000)
+const oneDayAsNum = 86400000;
 
+function calculateIntervalDays() {
+    let dateInput$$ = document.body.querySelector("#date");
+    dateInput$$.addEventListener("blur", handleInputDate);
 }
 
 function removeVocalsAndSpaces() {
@@ -50,9 +56,11 @@ function handleInputName() {
 }
 
 function handleInputDate() {
-
+    let valueAsNumber$$ = this.valueAsNumber;
+    let dayResult$$ = document.body.querySelector("#days");
+    dayResult$$.value = (referenceDayAsNum - valueAsNumber$$) / oneDayAsNum;
 }
 
 removeVocalsAndSpaces();
-
+calculateIntervalDays();
 //aqui iran los eventos
