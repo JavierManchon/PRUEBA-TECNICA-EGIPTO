@@ -26,35 +26,40 @@
 // El callback del evento de perder el foco del input "Fecha" es handleInputDate.
 // Averigua cómo hacer referencia a los inputs. Las devtools son tus amigas
 
-let nameInput$$ = document.body.querySelector("#name");
 
 //Defino el dia de referencia como valor numerico en formato ms
 const referenceDayAsNum = 1679270400000;
 //Defino un dia en formato ms (24x60x60x1000)
 const oneDayAsNum = 86400000;
 
+//Hago la funcion que tiene el evento blur que coge como valor el input date
 function calculateIntervalDays() {
     let dateInput$$ = document.body.querySelector("#date");
     dateInput$$.addEventListener("blur", handleInputDate);
 }
 
 function removeVocalsAndSpaces() {
+    let nameInput$$ = document.body.querySelector("#name");
     nameInput$$.addEventListener("blur", handleInputName);
 }
 
 function handleInputName() {
-    let nameResult$$ = document.body.querySelector("#nameWhithoutVocals");
-    let newInput$$ = document.body.querySelector("#name");
-    nameResult$$.value = newInput$$.value;
-    for (let i = 0; i < nameResult$$.value.length; i++) {
-        if (nameResult$$.value[i] !== "a" && nameResult$$.value[i] !== "e" && nameResult$$.value[i] !== "i" && nameResult$$.value[i] !== "o" && nameResult$$.value[i] !== "u" && nameResult$$.value[i] !== " " && 
-        nameResult$$.value[i] !== "A" && nameResult$$.value[i] !== "E" && nameResult$$.value[i] !== "I" && nameResult$$.value[i] !== "O" && nameResult$$.value[i] !== "U") {
-            nameResult$$.value.splice(i, 1);
+    let nameResult$$ = document.body.querySelector("#nameWithoutVocals");
+    //Hago una variable string vacia a la que le añado los caracteres que necesito
+    let result = "";
+    nameResult$$.value = this.value;
+    for (let i = 0; i < this.value.length; i++) {
+        if (this.value[i] !== "a" && this.value[i] !== "e" && this.value[i] !== "i" && this.value[i] !== "o" && this.value[i] !== "u" && this.value[i] !== " " && 
+        this.value[i] !== "A" && this.value[i] !== "E" && this.value[i] !== "I" && this.value[i] !== "O" && this.value[i] !== "U") {
+            result += this.value[i];
         }
     }
+    nameResult$$.value = result;
     return nameResult$$.value;
 }
 
+
+//Hago el evento que traduce el valueAsNumber en dias y calcula la diferencia con respecto al valor de referencia
 function handleInputDate() {
     let valueAsNumber$$ = this.valueAsNumber;
     let dayResult$$ = document.body.querySelector("#days");
